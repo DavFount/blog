@@ -9,6 +9,7 @@ class Post extends Model
 {
     use HasFactory;
     protected $fillable = ['title', 'excerpt', 'body','user_id', 'category_id'];
+    protected $with = ['category', 'author'];
 
     public function category()
     {
