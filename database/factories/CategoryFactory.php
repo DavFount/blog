@@ -16,8 +16,8 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        $name = fake()->unique()->words(rand(1,3), true);
-        $slug = str_replace(" ", "-", strtolower($name));
+        $name = fake()->unique()->words(1, true);
+        $slug = strtolower($name);
         return [
             'name' => $name,
             'slug' => $slug

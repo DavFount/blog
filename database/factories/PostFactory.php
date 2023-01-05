@@ -16,15 +16,20 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $title = fake()->unique()->words(3, true);
-        $slug = str_replace(" ", "-", strtolower($title));
-        $body = fake()->paragraph();
-        $excerpt = substr($body, 0, 100);
+        $title = fake()->unique()->words(rand(1,5), true);
+        $slug = str_replace(" ", "-", trim(strtolower($title)));
+        $body = fake()->paragraphs(rand(2,6));
+        $excerpt = '';
+
+        for($x=0;$x<2;$x++) {
+            $excerpt = $excerpt . '<p>' . $body[$x] . '</p>';
+        }
+
         return [
             'title'=>$title,
             'slug'=>$slug,
-            'body'=>"<p>{$body}</p>",
-            'excerpt'=>$excerpt,
+            'body'=> '<p>' . implode('</p><p>', $body) . '</p>',
+            'excerpt'=> $excerpt,
             'user_id'=> rand(1, 5),
             'category_id'=>rand(1,5)
         ];
