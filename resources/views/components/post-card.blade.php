@@ -31,13 +31,15 @@
             </div>
 
             <footer class="flex justify-between items-center mt-8">
+                <a href="/?author={{ $post->author->username }}">
                 <div class="flex items-center text-sm">
                     <img src="/images/lary-avatar.svg" alt="Lary avatar">
                     <div class="ml-3">
-                        <a href="/authors/{{ $post->author->username }}"><h5
-                                class="font-bold">{{ $post->author->name }}</h5></a>
+                        <h5
+                                class="font-bold">{{ $post->author->name }}</h5>
                     </div>
                 </div>
+                </a>
 
                 <div class="hidden lg:block">
                     <a href="/posts/{{ $post->slug }}"

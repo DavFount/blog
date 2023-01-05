@@ -10,7 +10,7 @@
                         <time>{{$post->created_at->diffForHumans()}}</time>
                     </p>
 
-                    <a href="/authors/{{ $post->author->username }}">
+                    <a href="/?author={{ $post->author->username }}">
                         <div class="flex items-center lg:justify-center text-sm mt-4">
                             <img src="/images/lary-avatar.svg" alt="Lary avatar">
                             <div class="ml-3 text-left">
