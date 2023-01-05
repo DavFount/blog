@@ -6,10 +6,13 @@
             <x-icon name="down-arrow" class=" absolute pointer-events-none" style="right: 12px;"/>
         </button>
     </x-slot:trigger>
-    <x-dropdown-item href="/" :active="request('category') === null">All</x-dropdown-item>
+    <x-dropdown-item href="/?{{ http_build_query(request()->except('category', 'page')) }}"
+                     :active="request('category') === null">All
+    </x-dropdown-item>
     @foreach($categories as $category)
-        <x-dropdown-item href="/?category={{  $category->slug }}&{{ http_build_query(request()->except('category')) }}"
-                         :active="request('category') === $category->slug">
+        <x-dropdown-item
+            href="/?category={{  $category->slug }}&{{ http_build_query(request()->except('category', 'page')) }}"
+            :active="request('category') === $category->slug">
             {{ ucwords($category->name) }}
         </x-dropdown-item>
     @endforeach
