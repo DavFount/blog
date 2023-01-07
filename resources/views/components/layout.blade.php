@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body style="font-family: Open Sans, sans-serif" class="max-w-none bg-gray-100 dark:bg-gray-900">
+<body style="font-family: Open Sans, sans-serif" class="max-w-none bg-white dark:bg-gray-900">
 <section class="px-6 py-8">
     <nav class="md:flex md:justify-between md:items-center">
         <div>
