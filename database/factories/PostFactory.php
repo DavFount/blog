@@ -19,16 +19,13 @@ class PostFactory extends Factory
         $title = fake()->unique()->words(rand(1,5), true);
         $slug = str_replace(" ", "-", trim(strtolower($title)));
         $body = fake()->paragraphs(rand(2,6));
-        $excerpt = '';
+        $excerpt = $body[0] . '\n' . $body[1];
 
-        for($x=0;$x<2;$x++) {
-            $excerpt = $excerpt . '<p>' . $body[$x] . '</p>';
-        }
 
         return [
             'title'=>$title,
             'slug'=>$slug,
-            'body'=> '<p>' . implode('</p><p>', $body) . '</p>',
+            'body'=> implode('\n', $body),
             'excerpt'=> $excerpt,
             'user_id'=> rand(1, 5),
             'category_id'=>rand(1,5)

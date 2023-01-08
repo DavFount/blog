@@ -6,6 +6,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body style="font-family: Open Sans, sans-serif" class="max-w-none bg-white dark:bg-gray-900">
 <section class="px-6 py-8">
@@ -18,17 +24,28 @@
 
         <div class="mt-8 md:mt-0 flex items-center">
             @auth()
-                Welcome, {{ auth()->user()->name }}!
-                <form method="post" action="/logout" class="ml-6 text-xs font-semibold text-blue-500 ">
-                    @csrf
-                    <button type="submit">Log out</button>
-                </form>
+                <x-dropdown>
+                    <x-slot name="trigger">
+                        <button class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}!</button>
+                    </x-slot>
+                    @can('admin')
+                        <x-dropdown-item href="/admin/posts" :active="request()->is('admin/posts')">Dashboard
+                        </x-dropdown-item>
+                    @endcan
+                    <x-dropdown-item href="#" x-data="{}"
+                                     @click.prevent="document.querySelector('#logout-form').submit()">Logout
+                    </x-dropdown-item>
+                    <form id="logout-form" method="post" action="/logout" class="hidden">
+                        @csrf
+                    </form>
+                </x-dropdown>
             @else
                 <a href="/register" class="text-xs font-bold uppercase">Register</a>
                 <a href="/login" class="text-xs font-bold uppercase ml-6">Log In</a>
             @endauth
 
-            <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+            <a href="#newsletter"
+               class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                 Subscribe for Updates
             </a>
         </div>
@@ -36,7 +53,8 @@
 
     {{ $slot }}
 
-    <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
+    <footer id="newsletter"
+            class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
         <img src="/images/lary-newsletter-icon.svg" alt="" class="mx-auto -mb-6" style="width: 145px;">
         <h5 class="text-3xl">Stay in touch with the latest posts</h5>
         <p class="text-sm mt-3">Promise to keep the inbox clean. No bugs.</p>
@@ -64,7 +82,9 @@
         </div>
     </footer>
 
-    <x-flash-message key="success" :timeout="4000" />
+    <x-flash-message key="success" :timeout="4000"/>
 </section>
+<script src="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.js"></script>
+<script src="https://unpkg.com/flowbite@1.6.0/dist/datepicker.js"></script>
 </body>
 </html>
